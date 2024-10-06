@@ -1,0 +1,99 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block choose %}
+<div class="choose_section layout_padding">
+    <div class="container">
+       <h1 class="choose_taital" id="reservation">Reservations</h1>
+       <div class="container">
+         <table class="table table-hover" style="width: 100%;">
+            <thead>
+               <tr>
+                  <th>Event Type</th>
+                  <th>Start</th>
+                  <th>End</th>
+                  <th>No. of days</th>
+                  <th>Status</th>
+               </tr>
+            </thead>
+            <tbody>
+                {% for i in list %}
+                <tr onclick="window.location.href='/reservation-details/{{i.appointment_id}}'" style="cursor: pointer;">
+                    <td>{{i.event_type}}</td>
+                    <td>{{i.start}}</td>
+                    <td>{{i.end}}</td>
+                    <td>{{i.days}}</td>
+                    <td>{{i.status}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+         </table>
+         <a href="{% url 'new-reservation' %}" type="button" class="btn btn-success">New Reservation</a>
+         <br>
+         <nav aria-label="Page navigation example">
+               <ul class="pagination justify-content-center">
+                  {% if page_obj.has_previous %}
+                     <li class="page-item">
+                           <a class="page-link" href="?page=1" aria-label="First">
+                              <span aria-hidden="true">&laquo; first</span>
+                           </a>
+                     </li>
+                     <li class="page-item">
+                           <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                              <span aria-hidden="true">previous</span>
+                           </a>
+                     </li>
+                  {% else %}
+                     <li class="page-item disabled">
+                           <a class="page-link" aria-label="First">
+                              <span aria-hidden="true">&laquo; first</span>
+                           </a>
+                     </li>
+                     <li class="page-item disabled">
+                           <a class="page-link" aria-label="Previous">
+                              <span aria-hidden="true">previous</span>
+                           </a>
+                     </li>
+                  {% endif %}
+         
+                  <!-- Range of page numbers -->
+                  {% for i in page_obj.paginator.page_range %}
+                     {% if page_obj.number == i %}
+                           <li class="page-item active" aria-current="page">
+                              <a class="page-link" href="#">{{ i }}</a>
+                           </li>
+                     {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+                           <li class="page-item">
+                              <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                           </li>
+                     {% endif %}
+                  {% endfor %}
+         
+                  {% if page_obj.has_next %}
+                     <li class="page-item">
+                           <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                              <span aria-hidden="true">next</span>
+                           </a>
+                     </li>
+                     <li class="page-item">
+                           <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                              <span aria-hidden="true">last &raquo;</span>
+                           </a>
+                     </li>
+                  {% else %}
+                     <li class="page-item disabled">
+                           <a class="page-link" aria-label="Next">
+                              <span aria-hidden="true">next</span>
+                           </a>
+                     </li>
+                     <li class="page-item disabled">
+                           <a class="page-link" aria-label="Last">
+                              <span aria-hidden="true">last &raquo;</span>
+                           </a>
+                     </li>
+                  {% endif %}
+               </ul>
+         </nav> 
+       </div>
+    </div>
+ </div>
+{% endblock %}

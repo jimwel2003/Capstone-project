@@ -1,0 +1,274 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block choose %}
+<div class="choose_section layout_padding">
+    <div class="container" id="fertilizer">
+        {% if details.0.image %}
+        <div class="container" style="text-align: center;">
+            <div class="col-md-12 px-0">
+                <img src="{{details.0.image.url}}" class="img-fluid ">
+            </div>
+        </div>
+        {% endif %}
+       <h1 class="choose_taital">{{details.0.name}}</h1>
+        <p style="text-align: left; font-weight: 500;">Description</p>
+        <div style="border: 1px solid #ccc; width: 100%; height: auto; margin-top: 0; padding-top: 0;">
+        <p style="text-align: justify; font-weight: 400;">{{details.0.description}}</p>
+        </div>
+        <p style="text-align: left; font-weight: 500;">Materials</p>
+        <div style="border: 1px solid #ccc; width: 100%; height: auto; margin-top: 0; padding-top: 0;">
+            <ul class="col-12">
+                {% for i in ing %}
+                <li class="li-">{{i.description}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <p style="text-align: left; font-weight: 500;">Procedures</p>
+        <div style="border: 1px solid #ccc; width: 100%; height: auto; margin-top: 0; padding-top: 0;">
+            <ol class="col-12">
+                {% for i in proc %}
+                <li class="li-">{{i.procedure}}</li>
+                {% endfor %}
+            </ol>
+        </div>
+        {% if source %}
+        <p style="text-align: left; font-weight: 500;">Sources</p>
+        <div style="border: 1px solid #ccc; width: 100%; height: auto; margin-top: 0; padding-top: 0;">
+            <ul class="col-12">
+                {% for i in source %}
+                <li class="li-">{{i.source}} - <a href="{{i.link}}" target="_blank">{{i.link}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <hr>
+        <form>
+            <div class="container-fluid">
+                <form action="#" method="POST">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="{{form.uom_qty.id_for_label}}" class="col-sm-12 col-form-label">{{form.uom_qty.label}} {%if form.uom_qty.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                        {{form.uom_qty}}
+                    </div>
+                    <div class="col-md-6 padding_0">
+                        <label for="{{form.uom.id_for_label}}" class="col-sm-12 col-form-label">{{form.uom.label}} {%if form.uom.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                        {{form.uom}}
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="{{form.land_qty.id_for_label}}" class="col-sm-12 col-form-label">{{form.land_qty.label}} {%if form.land_qty.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                        {{form.land_qty}}
+                    </div>
+                    <div class="col-md-6 padding_0">
+                        <label for="{{form.land.id_for_label}}" class="col-sm-12 col-form-label">{{form.land.label}} {%if form.land.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                        {{form.land}}
+                    </div>
+                </div>
+                </form>
+            </div>
+        </form>
+    </div>
+    <br><br><br>
+    <div class="container">
+        <div class="comment-section">
+            <h2>Comments</h2>
+            {%include 'app/messages.html'%}
+            <!-- Comment Form -->
+            {% if request.session.userid %}
+            <div class="comment-form">
+                <form action="{% url 'post-fertilizer-feedback' id %}" method="POST">
+                    {% csrf_token %}
+                    <textarea placeholder="Write your comment here..." rows="4" name="feedback"></textarea>
+        
+                    <div class="rating">
+                        <div class="stars">
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5">&#9733;</label>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4">&#9733;</label>
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3">&#9733;</label>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2">&#9733;</label>
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1">&#9733;</label>
+                        </div>
+                    </div>
+
+                    <button type="submit">Post Comment</button>
+                </form>
+            </div>
+            {% else %}
+            <div class="comment-form">
+                <p style="font-size: 12pt; text-align: center;"><a href="{% url 'signin' %}" style="color:green">Login</a> to post your comment</p>
+            </div>
+            {% endif %}
+    
+            <!-- Comments List -->
+            <ul class="comments-list" id="comment">
+                {% for i in feedback %}
+                <li class="comment">
+                    <div class="comment-author">
+                        {% if i.image.url %}
+                        <img src="{{i.image.url}}" alt="Profile Picture" class="comment-author-picture">
+                        {% else %}
+                        <img src="{{i.image}}" alt="Profile Picture" class="comment-author-picture">
+                        {% endif %}
+                        {{i.user.first_name}} {{i.user.last_name}}
+                    </div>
+                    <div class="comment-time">{{i.datetime_posted|date:'F d, Y h:i a'}}</div>
+                    <div class="comment-text">{{i.feedback}}</div>
+                    <div class="comment-rating">
+                        {% if i.rating == 1 %}
+                        <span class="stars">&#9733;</span>
+                        {% elif i.rating == 2 %}
+                        <span class="stars">&#9733;&#9733;</span>
+                        {% elif i.rating == 3 %}
+                        <span class="stars">&#9733;&#9733;&#9733;</span>
+                        {% elif i.rating == 4 %}
+                        <span class="stars">&#9733;&#9733;&#9733;&#9733;</span>
+                        {% elif i.rating == 5 %}
+                        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+ </div>
+{% endblock %}
+
+{% block fertilizer_script %}
+<script>
+   $("#id_uom_qty").on("change", function(){
+      var uom_qty = $('#id_uom_qty').val()
+      var uom = $("#id_uom").val()
+      var land_qty = $("#id_land_qty").val()
+      var land = $("#id_land").val()
+      var define = "UOM"
+      $.ajax({
+         type: 'POST',
+         url: '{% url "fertilizer-conversion" %}',
+         data: {
+                'uom_qty'               : uom_qty,
+                'uom'                   : uom,
+                'land_qty'              : land_qty,
+                'land'                  : land,
+                'define'                : define,
+                'id'                    : '{{id}}',
+                'csrfmiddlewaretoken'   : '{{ csrf_token }}'
+         },
+         success: function(response) {
+            if (response.status == 'success'){
+                $("#id_land_qty").val(response.result)
+            }else{
+                alert("Error encountered")
+                location.reload()
+            }
+         },
+         error: function(xhr, status, error) {
+               console.log(error)
+         }
+      });
+   })
+
+   $("#id_uom").on("change", function(){
+      var uom_qty = $('#id_uom_qty').val()
+      var uom = $("#id_uom").val()
+      var land_qty = $("#id_land_qty").val()
+      var land = $("#id_land").val()
+      var define = "UOM"
+      $.ajax({
+         type: 'POST',
+         url: '{% url "fertilizer-conversion" %}',
+         data: {
+                'uom_qty'               : uom_qty,
+                'uom'                   : uom,
+                'land_qty'              : land_qty,
+                'land'                  : land,
+                'define'                : define,
+                'id'                    : '{{id}}',
+                'csrfmiddlewaretoken'   : '{{ csrf_token }}'
+         },
+         success: function(response) {
+            if (response.status == 'success'){
+                $("#id_land_qty").val(response.result)
+            }else{
+                alert("Error encountered")
+                location.reload()
+            }
+         },
+         error: function(xhr, status, error) {
+               console.log(error)
+         }
+      });
+   })
+
+   $("#id_land_qty").on("change", function(){
+      var uom_qty = $('#id_uom_qty').val()
+      var uom = $("#id_uom").val()
+      var land_qty = $("#id_land_qty").val()
+      var land = $("#id_land").val()
+      var define = "LAND"
+      $.ajax({
+         type: 'POST',
+         url: '{% url "fertilizer-conversion" %}',
+         data: {
+                'uom_qty'               : uom_qty,
+                'uom'                   : uom,
+                'land_qty'              : land_qty,
+                'land'                  : land,
+                'define'                : define,
+                'id'                    : '{{id}}',
+                'csrfmiddlewaretoken'   : '{{ csrf_token }}'
+         },
+         success: function(response) {
+            if (response.status == 'success'){
+                $("#id_uom_qty").val(response.result)
+            }else{
+                alert("Error encountered")
+                location.reload()
+            }
+         },
+         error: function(xhr, status, error) {
+               console.log(error)
+         }
+      });
+   })
+
+   $("#id_land").on("change", function(){
+      var uom_qty = $('#id_uom_qty').val()
+      var uom = $("#id_uom").val()
+      var land_qty = $("#id_land_qty").val()
+      var land = $("#id_land").val()
+      var define = "LAND"
+      $.ajax({
+         type: 'POST',
+         url: '{% url "fertilizer-conversion" %}',
+         data: {
+                'uom_qty'               : uom_qty,
+                'uom'                   : uom,
+                'land_qty'              : land_qty,
+                'land'                  : land,
+                'define'                : define,
+                'id'                    : '{{id}}',
+                'csrfmiddlewaretoken'   : '{{ csrf_token }}'
+         },
+         success: function(response) {
+            if (response.status == 'success'){
+                $("#id_uom_qty").val(response.result)
+            }else{
+                alert("Error encountered")
+                location.reload()
+            }
+         },
+         error: function(xhr, status, error) {
+               console.log(error)
+         }
+      });
+   })
+</script>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block choose %}
+<div class="choose_section layout_padding">
+    <div class="container">
+       <h1 class="choose_taital">Organic Products - Pesticide</h1>
+       <div class="container" id="pesticide">
+         <form id="pesticide-form" action="{% url 'pesticide' %}#pesticide" method="POST">
+            {%include 'app/messages.html'%}
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{form.search.id_for_label}}" class="col-form-label">{{form.search.label}} {%if form.search.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.search}}
+            </div>
+        </form>
+       </div>
+       <div class="container">
+         <table class="table table-hover" style="width: 100%;">
+            <thead>
+               <tr>
+                  <th>Pesticide</th>
+                  <th>Description</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for i in list %}
+               <tr onclick="window.location.href='/pesticide-details/{{i.pesticide_id}}#pesticide'" style="cursor: pointer;">
+                  <td>{{i.name}}</td>
+                  <td>{{i.description}}</td>
+               </tr>
+               {% endfor %}
+               {% for i in list_ %}
+               <tr onclick="window.location.href='/pesticide-details/{{i.pesticide_id}}#pesticide'" style="cursor: pointer;">
+                  <td>{{i.pesticide.name}}</td>
+                  <td>{{i.pesticide.description}}</td>
+               </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+         <br>
+         <nav aria-label="Page navigation example">
+               <ul class="pagination justify-content-center">
+                  {% if page_obj.has_previous %}
+                     <li class="page-item">
+                           <a class="page-link" href="?page=1" aria-label="First">
+                              <span aria-hidden="true">&laquo; first</span>
+                           </a>
+                     </li>
+                     <li class="page-item">
+                           <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                              <span aria-hidden="true">previous</span>
+                           </a>
+                     </li>
+                  {% else %}
+                     <li class="page-item disabled">
+                           <a class="page-link" aria-label="First">
+                              <span aria-hidden="true">&laquo; first</span>
+                           </a>
+                     </li>
+                     <li class="page-item disabled">
+                           <a class="page-link" aria-label="Previous">
+                              <span aria-hidden="true">previous</span>
+                           </a>
+                     </li>
+                  {% endif %}
+         
+                  <!-- Range of page numbers -->
+                  {% for i in page_obj.paginator.page_range %}
+                     {% if page_obj.number == i %}
+                           <li class="page-item active" aria-current="page">
+                              <a class="page-link" href="#">{{ i }}</a>
+                           </li>
+                     {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+                           <li class="page-item">
+                              <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                           </li>
+                     {% endif %}
+                  {% endfor %}
+         
+                  {% if page_obj.has_next %}
+                     <li class="page-item">
+                           <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                              <span aria-hidden="true">next</span>
+                           </a>
+                     </li>
+                     <li class="page-item">
+                           <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                              <span aria-hidden="true">last &raquo;</span>
+                           </a>
+                     </li>
+                  {% else %}
+                     <li class="page-item disabled">
+                           <a class="page-link" aria-label="Next">
+                              <span aria-hidden="true">next</span>
+                           </a>
+                     </li>
+                     <li class="page-item disabled">
+                           <a class="page-link" aria-label="Last">
+                              <span aria-hidden="true">last &raquo;</span>
+                           </a>
+                     </li>
+                  {% endif %}
+               </ul>
+         </nav> 
+       </div>
+    </div>
+ </div>
+{% endblock %}

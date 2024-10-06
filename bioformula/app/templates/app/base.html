@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <title>Badang ni Ignacio</title>
+      <link rel="icon" type="image/png" href="../../static/app/images/badang_logo.png">
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <link rel="stylesheet" type="text/css" href="{% static 'app/css/bootstrap.min.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'app/css/style.css' %}">
+      <link rel="stylesheet" href="{% static 'app/css/responsive.css' %}">
+      <link rel="icon" href="{% static 'app/images/fevicon.png' %}" type="image/gif" />
+      <link rel="stylesheet" href="{% static 'app/css/jquery.mCustomScrollbar.min.css' %}">
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <link rel="stylesheet" href="{% static 'app/css/owl.carousel.min.css' %}">
+      <link rel="stylesheet" href="{% static 'app/css/owl.theme.default.min.css' %}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+      <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+      <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+      <link rel="stylesheet" href="{% static 'app/css/custom.css' %}">
+</head>
+   </head>
+   <body>
+      <div class="header_section">
+         <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="logo"><a href="#"><img src="{% static 'app/images/ignacio.png' %}"></a></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+               <div class="navbar-nav">
+                  <a class="nav-item nav-link" href="/">Home</a>
+                  <a class="nav-item nav-link" href="{% url 'organic' %}#organic">Organic Products</a>
+                  {% if request.session.userid %}
+                  <a class="nav-item nav-link" href="{% url 'reservations' %}#reservation">Reservation</a>
+                  {% endif %}
+                  {% if request.session.group == 'Admin' %}
+                  <a class="nav-item nav-link" href="{% url 'certificate' %}">Certificate</a>
+                  {% endif %}
+                  <a class="nav-item nav-link" href="#">About</a>
+                  {% if request.session.userid %}
+                     <a class="nav-item nav-link" href="{% url 'profile' request.session.userid %}">Profile</a>
+                     <a class="nav-item nav-link" href="{% url 'signout' %}">Logout</a>
+                  {% else %}
+                     <a class="nav-item nav-link" href="{% url 'signin' %}#login">Login</a>
+                  {% endif %}
+               </div>
+            </div>
+         </nav>
+         <!-- banner section end -->
+         <div class="banner_section layout_padding">
+            <div id="main_slider" class="carousel slide" data-ride="carousel">
+               <div class="carousel-inner">
+             
+                     <div class="container">
+                        <div class="row">
+                           <div class="col-md-6">
+                              <h1 class="banner_taital">Growing a Greener,</style><br> <span style="color: #fff;">Healthier Future</span></h1>
+                              <p class="banner_text">We are committed to fostering sustainable and organic farming practices, empowering farmers to achieve better yields while protecting the environment.</p>
+                              <div class="read_bt"><a href="#">Learn More About Our Mission</a></div>
+                           </div>
+                           <div class="col-md-6">
+                              <div><img src="{% static 'app/images/img-1.png' %}" class="image_1"></div>
+                           </div>
+                        </div>
+                        <div class="custum_menu">
+                           <ul>
+                              <li {% if page == 'Home' %}class="active"{% endif %}><a href="/">Home</a></li>
+                              <li {% if page == 'Organic' %}class="active"{% endif %}><a href="{% url 'organic' %}#organic">Organic Products</a></li>
+                              {% if request.session.userid %}
+                              <li {% if page == 'Reservation' %}class="active"{% endif %}><a href="{% url 'reservations' %}#reservation">Reservation</a></li>
+                              {% endif %}
+                              {% if request.session.group == 'Admin' %}
+                              <li {% if page == 'Certificate' %}class="active"{% endif %}><a href="{% url 'certificate' %}">Certificate</a></li>
+                              {% endif %}
+                              <li {% if page == 'About' %}class="active"{% endif %}><a href="#">About</a></li>
+                              {% if request.session.userid %}
+                                 <li {% if page == 'Profile' %}class="active"{% endif %}><a href="{% url 'profile' request.session.userid %}">Profile</a></li>
+                                 <li><a href="{% url 'signout' %}">Logout</a></li>
+                              {% else %}
+                                 <li {% if page == 'Login' %}class="active"{% endif %}><a href="{% url 'signin' %}#login">Login</a></li>
+                              {% endif %}
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               
+            
+                     </div>
+                  </div>
+                  <div class="carousel-item">
+                     <div class="container">
+                        <div class="row">
+                           <div class="col-md-6">
+                              <h1 class="banner_taital">Dedicated<br> <span style="color: #fff;">To Building Farms</span></h1>
+                              <p class="banner_text">It is a long established fact that a reader will be distracted by the readable content</p>
+                              <div class="read_bt"><a href="#">Read More</a></div>
+                           </div>
+                           <!-- <div class="col-md-6">
+                              <div><img src="{% static 'app/images/img-1.png' %}" class="image_1"></div>
+                           </div> -->
+                           
+                        </div>
+                        <div class="custum_menu">
+                           <ul>
+                              <li {% if page == 'Home' %}class="active"{% endif %}><a href="/">Home</a></li>
+                              <li {% if page == 'Organic' %}class="active"{% endif %}><a href="{% url 'organic' %}#organic">Organic Products</a></li>
+                              {% if request.session.userid %}
+                              <li {% if page == 'Reservation' %}class="active"{% endif %}><a href="{% url 'reservations' %}#reservation">Reservation</a></li>
+                              {% endif %}
+                              {% if request.session.group == 'Admin' %}
+                              <li {% if page == 'Certificate' %}class="active"{% endif %}><a href="{% url 'certificate' %}">Certificate</a></li>
+                              {% endif %}
+                              <li {% if page == 'About' %}class="active"{% endif %}><a href="#">About</a></li>
+                              {% if request.session.userid %}
+                                 <li {% if page == 'Profile' %}class="active"{% endif %}><a href="{% url 'profile' request.session.userid %}">Profile</a></li>
+                                 <li><a href="{% url 'signout' %}">Logout</a></li>
+                              {% else %}
+                                 <li {% if page == 'Login' %}class="active"{% endif %}><a href="{% url 'signin' %}#login">Login</a></li>
+                              {% endif %}
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="next">
+               <i class="fa fa-angle-left"></i>
+               </a>
+               <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
+               <i class="fa fa-angle-right"></i>
+               </a> -->
+            </div>
+         </div>
+      </div>
+      {% block products %}{% endblock %}
+      {% block about %}{% endblock %}
+      {% block choose %}{% endblock %}
+      {% block client %}{% endblock %}
+      <div class="footer_section layout_padding">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-3 col-sm-6">
+                  <h2 class="useful_text">About</h2>
+                  <p class="ipsum_text">Soon!</p>
+               </div>
+               <div class="col-lg-3 col-sm-6">
+                  <h2 class="useful_text">Organic Products</h2>
+                  <div class="footer_links">
+                     <ul>
+                        <li><a href="fertilizer">Organic Fertilizers</a></li>
+                        <li><a href="pesticide">Organic Pesticides</a></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="col-lg-3 col-sm-6">
+                  <h2 class="useful_text">Appointment</h2>
+                  <div class="footer_links">
+                     <ul>
+                        <li><a href="#">Book Now!</a></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="col-lg-3 col-sm-6">
+                  <h2 class="useful_text">contact us</h2>
+                  <div class="addres_link">
+                     <ul>
+                        <li><a href="#"><img src="{% static 'app/images/map-icon.png' %}"><span class="padding_left_10">Zone 4, San Joaquin, San Fernando, Camarines Sur</span></a></li>
+                        <li><a href="#"><img src="{% static 'app/images/call-icon.png' %}"><span class="padding_left_10">+63 9171342539</span></a></li>
+                        <li><a href="#"><img src="{% static 'app/images/mail-icon.png' %}"><span class="padding_left_10">biofarmula3@gmail.com</span></a></li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="copyright_section">
+         <div class="container">
+            <p class="copyright_text">Copyright 2024. Badang ni Ignacio. All Right Reserved.</p>
+         </div>
+      </div>
+      <script src="{% static 'app/js/jquery.min.j' %}s"></script>
+      <script src="{% static 'app/js/popper.min.js' %}"></script>
+      <script src="{% static 'app/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'app/js/jquery-3.0.0.min.js' %}"></script>
+      <script src="{% static 'app/js/plugin.js' %}"></script>
+      <script src="{% static 'app/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+      <script src="{% static 'app/js/custom.js' %}"></script>
+      <script src="{% static 'app/js/owl.carousel.js' %}"></script>
+      <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+      <script src="{% static 'app/js/biofarmula.js' %}"></script>
+      {% block pesticide_script %}{% endblock %}
+      {% block fertilizer_script %}{% endblock %}
+      {% block reservation_script %}{% endblock %}
+   </body>
+</html>

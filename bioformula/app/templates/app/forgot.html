@@ -1,0 +1,19 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block choose %}
+<div class="choose_section layout_padding">
+    <div class="container">
+        <h1 class="choose_taital" id="forgot">Forgot Password</h1>
+        <form action="{% url 'forgot-password' %}#forgot" method="POST">
+            {%include 'app/messages.html'%}
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{form.email.id_for_label}}" class="col-sm-12 col-form-label">{{form.email.label}} {%if form.email.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.email}}
+            </div>
+            <button class="btn btn-danger" type="submit">Forgot Password</button>
+        </form>
+    </div>
+ </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block products %}
+<div class="services_section layout_padding">
+    <div class="container">
+       <h1 class="services_taital" id="organic">Organic Products</h1>
+       <div class="services_section_2 layout_padding">
+          <div class="row">
+             <div class="col-md-6">
+                <a href="{% url 'fertilizer' %}#fertilizer">
+                    <div class="image_main">
+                       <img src="{% static 'app/images/img-2.png' %}" class="image_2">
+                       <h2 class="vegetable_text">Fertilizers</h2>
+                    </div>
+                    <h2>Organic Fertilizers</h2>
+                </a>
+             </div>
+             <div class="col-md-6">
+                <a href="{% url 'pesticide' %}#pesticide">
+                    <div class="image_main">
+                       <img src="{% static 'app/images/img-3.png' %}" class="image_2">
+                       <h2 class="vegetable_text">Pesticides</h2>
+                    </div>
+                    <h2>Organic Pecticides</h2>
+                 </a>
+             </div>
+          </div>
+       </div>
+    </div>
+</div>
+<br>
+{% endblock %}

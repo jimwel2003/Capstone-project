@@ -1,0 +1,65 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block choose %}
+<div class="choose_section layout_padding">
+    <div class="container">
+       <h1 class="choose_taital" id="reservation">Reservation Details</h1>
+       <div class="container">
+        <form action="{% url 'reservation-details' id %}#reservation" method="POST">
+            {%include 'app/messages.html'%}
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{form.event_type.id_for_label}}" class="col-sm-12 col-form-label">{{form.event_type.label}} {%if form.event_type.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.event_type}}
+              </div>
+            <div class="form-group">
+                <label for="{{form.duration.id_for_label}}" class="col-sm-12 col-form-label">{{form.duration.label}} {%if form.duration.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.duration}}
+            </div>
+            <div class="form-group">
+                <label for="{{form.start.id_for_label}}" class="col-sm-12 col-form-label">{{form.start.label}} {%if form.start.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.start}}
+              </div>
+            <div class="form-group">
+                <label for="{{form.end.id_for_label}}" class="col-sm-12 col-form-label">{{form.end.label}} {%if form.end.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.end}}
+            </div>
+            <div class="form-group">
+                <label for="{{form.status.id_for_label}}" class="col-sm-12 col-form-label">{{form.status.label}} {%if form.status.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.status}}
+            </div>
+            <div class="form-group">
+                <label for="{{form.notes.id_for_label}}" class="col-sm-12 col-form-label">{{form.notes.label}} {%if form.notes.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.notes}}
+            </div>
+            <button class="btn btn-success" type="submit">Update Reservation</button>
+        </form>
+       </div>
+    </div>
+ </div>
+{% endblock %}
+
+{% block reservation_script %}
+<script>
+    $(document).ready(function() {
+    // Array of disabled dates (year-month-day format)
+    var disabledDates = {{disabledDates|safe}}
+  
+    $('.datepicker').datepicker({
+        dateFormat: 'yy-mm-dd',
+        minDate: 0, // Disable past dates
+        beforeShowDay: function(date) {
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1; // Adjust for 0-based months
+        var day = date.getDate();
+  
+        // Convert date to year-month-day format for comparison
+        var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+  
+        // Check if the date is in the disabledDates array
+        return $.inArray(formattedDate, disabledDates) === -1 ? [true, '', ''] : [false, '', 'disabled'];
+      }
+    });
+});
+</script>
+{% endblock %}

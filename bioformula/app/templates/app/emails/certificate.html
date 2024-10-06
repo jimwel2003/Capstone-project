@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            text-align: center;
+            padding: 50px;
+            background-image: url(../../../static/app/images/cert-bg.png);
+            background-size: cover; /* Makes the image cover the entire background */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-position: center; /* Centers the image */
+        }
+        .certificate {
+            border: 5px solid #000;
+            padding: 50px;
+            width: 70%;
+            margin: auto;
+            background-color: #a4b2a7;
+            text-align: center;
+        }
+        h1 {
+            font-size: 35px;
+            text-align: center;
+            padding: 0%;
+            margin: 0%;
+        }
+        .name {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .details {
+            font-size: 20px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+        .date {
+            margin: 30px 0;
+            text-align: center;
+        }
+        .sign {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+        .sign-line {
+            margin: 10px auto;
+            border-top: 2px solid #000;
+            width: 200px;
+        }
+        .event{
+            font-weight: lighter;
+        }
+    </style>
+</head>
+<body>
+
+<div class="certificate">
+
+    <img src="../../../static/app/images/ignacio.png" width="50px" height="50px">
+    <h1>CERTIFICATE</h1>
+    <h3>OF PARTICIPATION</h3>
+    <p>is presented to</p>
+    <p class="name">{{name}}</p>
+    <p>for actively participating in this event.   </p>
+    <p class="details">{{details}}</p>
+    <p>Held at Badang ni Ignacio, San Joaquin, San Fernando, Camarines Sur. For successfully finishing the conducted event.</p>
+    <p class="date">{{inclusive_date}}</p>
+    <div class="sign">
+        <p style="text-align: center;">{{signatory}}</p>
+        <div class="sign-line"></div>
+    </div>
+</div>
+
+</body>
+</html>

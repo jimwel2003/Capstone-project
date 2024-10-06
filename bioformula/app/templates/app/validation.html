@@ -1,0 +1,59 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block choose %}
+<div class="choose_section layout_padding">
+    <div class="container">
+        <h1 class="choose_taital">Additional Information</h1>
+        <form action="{% url 'validation' id %}" method="POST">
+            {%include 'app/messages.html'%}
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{form.firstname.id_for_label}}" class="col-sm-12 col-form-label">{{form.firstname.label}} {%if form.firstname.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.firstname}}
+              </div>
+            <div class="form-group">
+                <label for="{{form.middlename.id_for_label}}" class="col-sm-12 col-form-label">{{form.middlename.label}} {%if form.middlename.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.middlename}}
+            </div>
+            <div class="form-group">
+                <label for="{{form.lastname.id_for_label}}" class="col-sm-12 col-form-label">{{form.lastname.label}} {%if form.lastname.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.lastname}}
+            </div>
+            <div class="form-group">
+                <label for="{{form.email.id_for_label}}" class="col-sm-12 col-form-label">{{form.email.label}} {%if form.email.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.email}}
+            </div>
+            <div class="form-group">
+                <label for="{{form.suffix.id_for_label}}" class="col-sm-12 col-form-label">{{form.suffix.label}} {%if form.suffix.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.suffix}}
+            </div>
+            <div class="form-group">
+                <label for="{{form.civil_status.id_for_label}}" class="col-sm-12 col-form-label">{{form.civil_status.label}} {%if form.civil_status.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.civil_status}}
+            </div>
+            <div class="form-group">
+                <label for="{{form.gender.id_for_label}}" class="col-sm-12 col-form-label">{{form.gender.label}} {%if form.gender.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.gender}}
+            </div>
+            <div class="form-group">
+                <label for="{{form.occupation.id_for_label}}" class="col-sm-12 col-form-label">{{form.occupation.label}} {%if form.occupation.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.occupation}}
+            </div>
+            <div class="form-group">
+                <label for="{{form.address.id_for_label}}" class="col-sm-12 col-form-label">{{form.address.label}} {%if form.address.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.address}}
+            </div>
+            <div class="form-group">
+                <label for="{{form.contact_no.id_for_label}}" class="col-sm-4 col-form-label">{{form.contact_no.label}} {%if form.contact_no.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.contact_no}}
+            </div>
+            <div class="form-group">
+                <label for="{{form.password.id_for_label}}" class="col-sm-4 col-form-label">{{form.password.label}} {%if form.password.field.required%}<i style="color:red">*</i>{%endif%}</label>
+                {{form.password}}
+            </div>
+            <button class="btn btn-success btn-lg" type="submit">Save</button>
+        </form>
+    </div>
+ </div>
+{% endblock %}
