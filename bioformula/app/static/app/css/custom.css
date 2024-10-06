@@ -1,0 +1,105 @@
+.required-field::after {
+    content: " *";
+    color: red;
+}
+
+ul .li- {
+    font-size: 14px;
+    margin-left: 10px;
+    list-style-type: circle;
+    font-weight: 400;
+    }
+
+    ol .li- {
+    font-size: 14px;
+    margin-left: 10px;
+    list-style-type: decimal;
+    font-weight: 400;
+    }
+
+    .comment-section {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.comment-form {
+    margin-bottom: 30px;
+}
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    resize: vertical;
+    font-size: 14px;
+}
+.comment-form .rating {
+    margin-bottom: 10px;
+}
+.comment-form button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.comment-form button:hover {
+    background-color: #218838;
+}
+.comments-list {
+    list-style: none;
+    padding: 0;
+}
+.comment {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.comment-author-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+.comment-time {
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.comment-text {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.comment-rating {
+    color: #f39c12;
+}
+
+.stars {
+    display: inline-block;
+}
+.stars input {
+    display: none;
+}
+.stars label {
+    font-size: 20px;
+    color: #ddd;
+    cursor: pointer;
+}
+.stars input:checked ~ label {
+    color: #f39c12;
+}
+.stars input:hover ~ label {
+    color: #f39c12;
+}
+.stars label:hover ~ label {
+    color: #ddd;
+}
